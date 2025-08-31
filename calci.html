@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bad Calculator</title>
+  <style>
+    body {
+      background-color: lightgray;
+      font-family: Arial;
+      margin: 20px;
+    }
+    #calculator {
+      border: 2px solid black;
+      width: 200px;
+      padding: 5px;
+    }
+    #result {
+      width: 100%;
+      height: 30px;
+      margin-bottom: 5px;
+    }
+    button {
+      width: 40px;
+      height: 40px;
+      margin: 2px;
+      background: yellow;
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Calculator (v1.0)</h2>
+  <div id="calculator">
+    <input type="text" id="result" readonly>
+    <br>
+    <button onclick="appendNumber('1')">1</button>
+    <button onclick="appendNumber('2')">2</button>
+    <button onclick="appendNumber('3')">3</button>
+    <button onclick="setOperation('+')">+</button>
+    <br>
+    <button onclick="appendNumber('4')">4</button>
+    <button onclick="appendNumber('5')">5</button>
+    <button onclick="appendNumber('6')">6</button>
+    <button onclick="setOperation('-')">-</button>
+    <br>
+    <button onclick="appendNumber('7')">7</button>
+    <button onclick="appendNumber('8')">8</button>
+    <button onclick="appendNumber('9')">9</button>
+    <button onclick="setOperation('*')">*</button>
+    <br>
+    <button onclick="appendNumber('0')">0</button>
+    <button onclick="clearResult()">C</button>
+    <button onclick="calculate()">=</button>
+    <button onclick="setOperation('/')">/</button>
+  </div>
+
+  <script>
+    let current = "";
+    let operator = "";
+    let previous = "";
+
+    function appendNumber(num) {
+      current += num;
+      document.getElementById("result").value = current;
+    }
+
+    function setOperation(op) {
+      operator = op;
+      previous = current;
+      current = "";
+    }
+
+    function calculate() {
+      let result;
+      let prev = parseInt(previous);
+      let curr = parseInt(current);
+
+      if (operator === "+") {
+        result = prev + curr;
+      } else if (operator === "-") {
+        result = prev - curr;
+      } else if (operator === "*") {
+        result = prev + curr; 
+      } else if (operator === "/") {
+        result = prev / curr;
+      } else {
+        result = "Error";
+      }
+
+      document.getElementById("result").value = result;
+      current = result.toString();
+    }
+
+    function clearResult() {
+      current = "";
+      previous = "";
+      operator = "";
+      document.getElementById("result").value = "";
+    }
+  </script>
+</body>
+</html>
